@@ -35,7 +35,7 @@ def getwiki(s):
         wikitext_res = re.sub(r'(\([^()]*\))|(\{[^\{\}]*\})', '', wikitext_res)
         return wikitext_res
     except Exception:
-        return "В энциклопедии нет информации об этом."
+        return "Не удалось получить информацию по запросу."
 
 
 @dp.message_handler(commands=['start'])
@@ -46,6 +46,7 @@ async def start(msg: types.Message):
 
 @dp.message_handler(commands=['set_lang', 'change_lang'])
 async def change_language(msg: types.Message):
+    """handler команд /set_lang и /change_lang"""
     lang = msg.text.split()[-1]
     wikipedia.set_lang(lang)
     await msg.answer(f"Язык поиска изменен на {lang}")
